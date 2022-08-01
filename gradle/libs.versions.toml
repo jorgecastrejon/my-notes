@@ -1,0 +1,17 @@
+[versions]
+androidBuildTools = "32.0.0"
+androidComplieSdk = "32"
+androidGradlePlugin = "7.2.1"
+androidMaterial = "1.6.1"
+androidMinSdk = "24"
+androidTargetSdk = "32"
+androidxAppCompat = "1.4.2"
+androidxCore = "1.8.0"
+kotlin = "1.7.0"
+
+[libraries]
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
