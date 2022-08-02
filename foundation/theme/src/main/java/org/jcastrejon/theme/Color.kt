@@ -1,5 +1,10 @@
 package org.jcastrejon.theme
 
+import androidx.compose.material.darkColors
 import androidx.compose.ui.graphics.Color
 
-val Pink500Dark = Color(0xFFb0003a)
+val Dark = Color(0xff1C1B1F)
+
+val DarkColors = darkColors(
+    background = Dark
+)

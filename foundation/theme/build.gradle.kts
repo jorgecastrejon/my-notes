@@ -28,6 +28,13 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
@@ -35,10 +42,14 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
+    api(libs.androidx.compose.activity)
+    api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.material.icons)
     api(libs.androidx.compose.material.icons.extended)
     api(libs.androidx.compose.material)
     api(libs.androidx.compose.ui)
+    debugApi(libs.androidx.compose.ui.tooling)
+    api(libs.androidx.compose.ui.tooling.preview)
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
