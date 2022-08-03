@@ -30,6 +30,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
+
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xopt-in=kotlinx.coroutines.FlowPreview"
+        )
+
     }
 
     buildFeatures {
@@ -42,11 +47,13 @@ android {
 }
 
 dependencies {
+    implementation(project(":foundation:arch"))
     implementation(project(":foundation:theme"))
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
+    implementation(project(mapOf("path" to ":foundation:arch")))
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     testImplementation("junit:junit:4.13.2")

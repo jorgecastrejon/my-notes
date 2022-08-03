@@ -22,11 +22,11 @@ fun MyNotesRouter(
         listRoute(
             onAddNoteClick = {
 
-            },
-            onBackClick = {
-                navController.navigate(List()) {
-                    popUpTo(List()) { inclusive = true }
-                }
             })
+//            onBackClick = {
+//                navController.navigate(List()) {
+//                    popUpTo(List()) { inclusive = true }
+//                }
+//            })
     }
 }

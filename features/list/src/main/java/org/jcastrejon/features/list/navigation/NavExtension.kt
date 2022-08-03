@@ -1,24 +1,22 @@
 package org.jcastrejon.features.list.navigation
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import org.jcastrejon.features.list.ui.ListScreen
+import org.jcastrejon.features.list.ui.ListViewModel
 
 const val ListFeatureRoute = "List"
 
 fun NavGraphBuilder.listRoute(
-    onAddNoteClick: () -> Unit,
-    onBackClick: () -> Unit,
+    onAddNoteClick: () -> Unit
 ) {
     composable(ListFeatureRoute) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Blue)
+        val listViewModel: ListViewModel = hiltViewModel()
+
+        ListScreen(
+            listViewModel = listViewModel,
+            onAddNoteClick = onAddNoteClick
         )
     }
 }
