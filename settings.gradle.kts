@@ -16,3 +16,4 @@ rootProject.name = "MyNotes"
 include(":app")
 include(":foundation:theme")
 include(":features:list")
+include(":foundation:arch")
