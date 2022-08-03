@@ -12,6 +12,8 @@ androidxSplashScreen = "1.0.0"
 compose = "1.2.0"
 composeActivity = "1.4.0"
 composeNavigation = "2.5.1"
+hilt = "2.43.1"
+hiltNavigation = "1.0.0"
 kotlin = "1.7.0"
 kotlinCoroutines = "1.6.4"
 
@@ -32,6 +34,10 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxSplashScreen" }
 androidx-lifecycle-runtime = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+hilt-gradlePlugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin", version.ref = "hilt" }
+hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigation" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlin", name = "kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlin", name = "kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
