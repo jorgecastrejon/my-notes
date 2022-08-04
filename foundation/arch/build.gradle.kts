@@ -29,6 +29,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
