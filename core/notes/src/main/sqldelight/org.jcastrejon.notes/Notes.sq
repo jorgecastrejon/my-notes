@@ -1,0 +1,42 @@
+import java.time.LocalDate;
+
+CREATE TABLE note_dto (
+  id INTEGER AS Int NOT NULL PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  color INTEGER AS Int NOT NULL,
+  created_date TEXT AS LocalDate NOT NULL,
+  last_updated TEXT AS LocalDate NOT NULL,
+  deleted INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+insert:
+INSERT INTO note_dto(title, body, color, created_date, last_updated)
+VALUES (?,?, ?,?, ?);
+
+get:
+SELECT *
+FROM note_dto
+WHERE id = :noteId;
+
+getAll:
+SELECT *
+FROM note_dto;
+
+update:
+UPDATE note_dto
+SET title = :title, body = :body, color = :color, created_date = :createdDate, last_updated = :lastUpdated
+WHERE id = :id;
+
+selectLastInsertedRowId:
+SELECT last_insert_rowid();
+
+remove:
+UPDATE note_dto
+SET deleted = 1
+WHERE id = :id;
+
+recover:
+UPDATE note_dto
+SET deleted = 0
+WHERE id = :id;

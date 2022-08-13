@@ -1,9 +1,11 @@
 package org.jcastrejon.editor.ui.arch
 
 import org.jcastrejon.arch.mvi.MviResult
+import org.jcastrejon.notes.Note
 
 sealed class EditorResult : MviResult {
-    object CreateNote : EditorResult()
+    object NoteSaved : EditorResult()
+    object PrepareFields : EditorResult()
     object Cancel : EditorResult()
-    class LoadNote(val note: Any) : EditorResult()
+    class LoadNote(val note: Note) : EditorResult()
 }

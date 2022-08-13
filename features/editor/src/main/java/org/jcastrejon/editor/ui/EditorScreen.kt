@@ -63,6 +63,7 @@ fun EditorContent(
     state: EditorState,
     onAction: (EditorAction) -> Unit = {}
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
 
     val fieldsState = rememberFieldsState(from = state.note)
@@ -76,14 +77,24 @@ fun EditorContent(
             .clickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null
-            ) { focusManager.clearFocus() }
+            ) {
+                keyboardController?.hide()
+                focusManager.clearFocus()
+            }
     ) {
         EditorToolbar(
-            onSaveClick = { onAction(OnSaveClick) },
+            onSaveClick = {
+                onAction(
+                    OnSaveClick(
+                        note = state.note,
+                        title = fieldsState.title,
+                        body = fieldsState.body
+                    )
+                )
+            },
             onBackClick = { onAction(OnBackClick) },
         )
         Spacer(modifier = Modifier.height(24.dp))
-        val keyboardController = LocalSoftwareKeyboardController.current
 
         val selectionColors = TextSelectionColors(
             handleColor = MaterialTheme.colors.onBackground,

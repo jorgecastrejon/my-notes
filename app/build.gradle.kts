@@ -46,6 +46,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:notes"))
     implementation(project(":foundation:theme"))
     implementation(project(":features:list"))
     implementation(project(":features:editor"))
@@ -56,6 +57,8 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+    implementation(libs.sqldelight.android)
+    implementation(libs.sqldelight.jvm)
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")

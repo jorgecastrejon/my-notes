@@ -9,6 +9,7 @@ buildscript {
         classpath(libs.android.gradlePlugin)
         classpath(libs.hilt.gradlePlugin)
         classpath(libs.kotlin.gradlePlugin)
+        classpath(libs.sqldelight.gradlePlugin)
     }
 }
 

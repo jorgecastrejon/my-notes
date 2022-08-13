@@ -14,6 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MyNotes"
 include(":app")
+include(":core:notes")
 include(":features:list")
 include(":features:editor")
 include(":foundation:arch")
