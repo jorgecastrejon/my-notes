@@ -4,8 +4,8 @@ import org.jcastrejon.arch.mvi.MviState
 
 data class ListState(
     val isLoading: Boolean = true,
-    val filter: String = String(),
-    val notes: List<Any> = emptyList()
+    val notes: List<Any> = emptyList(),
+    val editMode: Boolean = false
 ) : MviState
 
 enum class ViewState {

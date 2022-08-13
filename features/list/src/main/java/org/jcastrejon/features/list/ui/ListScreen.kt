@@ -1,6 +1,10 @@
 package org.jcastrejon.features.list.ui
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.graphics.res.animatedVectorResource
+import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
+import androidx.compose.animation.graphics.vector.AnimatedImageVector
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -12,7 +16,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,8 +33,7 @@ import org.jcastrejon.arch.rememberFlow
 import org.jcastrejon.features.list.R
 import org.jcastrejon.features.list.navigation.components.ListEmptyView
 import org.jcastrejon.features.list.ui.arch.*
-import org.jcastrejon.features.list.ui.arch.ListAction.LoadData
-import org.jcastrejon.features.list.ui.arch.ListAction.AddNoteClick
+import org.jcastrejon.features.list.ui.arch.ListAction.*
 import org.jcastrejon.features.list.ui.arch.ListEffect.GoToAddNote
 
 @Composable
@@ -74,14 +76,17 @@ fun ListContent(
             .fillMaxSize()
             .background(MaterialTheme.colors.background)
             .statusBarsPadding()
+            .imePadding()
     ) {
         ListToolbar(
             title = stringResource(id = R.string.toobar_title),
-            filter = null
+            editMode = state.editMode,
+            onEditModeClick = { onAction(EditNoteClick) }
         )
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
+                .weight(1f)
         ) {
             Crossfade(targetState = state.viewState) { viewState ->
                 when (viewState) {
@@ -96,14 +101,13 @@ fun ListContent(
                     .navigationBarsPadding()
                     .padding(vertical = 24.dp, horizontal = 16.dp)
                 ,
-                backgroundColor = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
-                contentColor = MaterialTheme.colors.onBackground,
+                backgroundColor = MaterialTheme.colors.surface,
+                contentColor = MaterialTheme.colors.onSurface,
                 onClick = { onAction(AddNoteClick) }
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = null,
-                    tint = MaterialTheme.colors.onBackground
+                    contentDescription = null
                 )
             }
         }
@@ -114,7 +118,8 @@ fun ListContent(
 fun ListToolbar(
     modifier: Modifier = Modifier,
     title: String,
-    filter: String?,
+    editMode: Boolean = false,
+    onEditModeClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -130,24 +135,28 @@ fun ListToolbar(
             style = MaterialTheme.typography.h6
         )
         Spacer(modifier = Modifier.weight(1f))
+
         Box(
             modifier = Modifier
-                .padding(vertical = 8.dp)
                 .fillMaxHeight()
+                .padding(vertical = 8.dp)
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(12.dp))
                 .background(MaterialTheme.colors.onBackground.copy(alpha = 0.1f))
                 .clickable(
                     interactionSource = remember { MutableInteractionSource() },
                     indication = rememberRipple(bounded = true),
-                    onClick = {}
+                    onClick = onEditModeClick
                 ),
             contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = Icons.Default.Search,
-                contentDescription = null,
-                tint = MaterialTheme.colors.onBackground
+            val image = AnimatedImageVector.animatedVectorResource(R.drawable.avd_edit_close)
+            Image(
+                painter = rememberAnimatedVectorPainter(
+                    animatedImageVector = image,
+                    atEnd = editMode
+                ),
+                contentDescription = "Edit Mode",
             )
         }
     }

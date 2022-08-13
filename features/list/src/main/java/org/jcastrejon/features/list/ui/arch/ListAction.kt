@@ -5,4 +5,5 @@ import org.jcastrejon.arch.mvi.MviAction
 sealed class ListAction : MviAction {
     object LoadData : ListAction()
     object AddNoteClick : ListAction()
+    object EditNoteClick : ListAction()
 }

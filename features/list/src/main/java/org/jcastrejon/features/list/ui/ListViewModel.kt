@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import org.jcastrejon.arch.mvi.MviViewModel
 import org.jcastrejon.features.list.ui.arch.ListAction
+import org.jcastrejon.features.list.ui.arch.ListAction.EditNoteClick
 import org.jcastrejon.features.list.ui.arch.ListAction.AddNoteClick
 import org.jcastrejon.features.list.ui.arch.ListAction.LoadData
 import org.jcastrejon.features.list.ui.arch.ListEffect
@@ -28,6 +29,7 @@ class ListViewModel @Inject constructor(
             when (action) {
                 is LoadData -> fetchNotes()
                 is AddNoteClick -> flowOf(AddNote)
+                is EditNoteClick -> flowOf(ToggleEditNode)
             }
         }
 
@@ -36,6 +38,7 @@ class ListViewModel @Inject constructor(
             is NotesBeingFetched -> previousState.copy(isLoading = true)
             is NotesLoaded -> previousState.copy(isLoading = false, notes = result.notes)
             is AddNote -> previousState
+            is ToggleEditNode -> previousState.copy(editMode = !previousState.editMode)
         }
 
     override fun onResult(result: ListResult) {
@@ -43,7 +46,8 @@ class ListViewModel @Inject constructor(
         when (result) {
             is AddNote -> effects.trySend(GoToAddNote)
             is NotesBeingFetched,
-            is NotesLoaded -> Unit
+            is NotesLoaded,
+            is ToggleEditNode -> Unit
         }
     }
 

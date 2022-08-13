@@ -32,7 +32,8 @@ android {
         jvmTarget = JavaVersion.VERSION_11.toString()
 
         freeCompilerArgs = freeCompilerArgs + listOf(
-            "-Xopt-in=kotlinx.coroutines.FlowPreview"
+            "-Xopt-in=kotlinx.coroutines.FlowPreview",
+            "-Xopt-in=androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi",
         )
 
     }
@@ -51,6 +52,7 @@ dependencies {
     implementation(project(":foundation:theme"))
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
     implementation(project(mapOf("path" to ":foundation:arch")))
