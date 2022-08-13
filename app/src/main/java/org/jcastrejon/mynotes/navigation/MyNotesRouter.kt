@@ -5,7 +5,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import org.jcastrejon.editor.navigation.editorRoute
 import org.jcastrejon.features.list.navigation.listRoute
+import org.jcastrejon.mynotes.navigation.MyNotesScreen.Editor
 import org.jcastrejon.mynotes.navigation.MyNotesScreen.List
 
 @Composable
@@ -19,14 +21,14 @@ fun MyNotesRouter(
         navController = navController,
         startDestination = startDestination
     ) {
-        listRoute(
-            onAddNoteClick = {
+        listRoute(onAddNoteClick = {
+            navController.navigate(Editor()) {
+                popUpTo(Editor()) { inclusive = true }
+            }
+        })
 
-            })
-//            onBackClick = {
-//                navController.navigate(List()) {
-//                    popUpTo(List()) { inclusive = true }
-//                }
-//            })
+        editorRoute(onBack = {
+            navController.popBackStack()
+        })
     }
 }

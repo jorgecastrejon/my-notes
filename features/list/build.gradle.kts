@@ -5,7 +5,6 @@ plugins {
     id("kotlin-kapt")
 }
 
-
 android {
     buildToolsVersion = libs.versions.androidBuildTools.get()
     compileSdk = Integer.parseInt(libs.versions.androidComplieSdk.get())
@@ -55,7 +54,6 @@ dependencies {
     implementation(libs.androidx.compose.animation.graphics)
     implementation(libs.androidx.core.ktx)
     implementation(libs.hilt.android)
-    implementation(project(mapOf("path" to ":foundation:arch")))
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     testImplementation("junit:junit:4.13.2")

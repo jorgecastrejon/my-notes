@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
@@ -10,21 +10,16 @@ android {
     compileSdk = Integer.parseInt(libs.versions.androidComplieSdk.get())
 
     defaultConfig {
-        applicationId = "org.jcastrejon.mynotes"
         minSdk = Integer.parseInt(libs.versions.androidMinSdk.get())
         targetSdk = Integer.parseInt(libs.versions.androidTargetSdk.get())
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-        }
         release {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -34,25 +29,29 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11.toString()
-    }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xopt-in=kotlinx.coroutines.FlowPreview",
+            "-Xopt-in=androidx.compose.ui.ExperimentalComposeUiApi",
+        )
+
     }
 
     buildFeatures {
         compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.compose.get()
+    }
 }
 
 dependencies {
+    implementation(project(":foundation:arch"))
     implementation(project(":foundation:theme"))
-    implementation(project(":features:list"))
-    implementation(project(":features:editor"))
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.core.splashscreen)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)

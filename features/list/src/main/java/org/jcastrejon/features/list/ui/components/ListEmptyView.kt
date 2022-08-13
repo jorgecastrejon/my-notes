@@ -1,4 +1,4 @@
-package org.jcastrejon.features.list.navigation.components
+package org.jcastrejon.features.list.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

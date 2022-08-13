@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.Flow
 import org.jcastrejon.arch.collectAsStateLifecycleAware
 import org.jcastrejon.arch.rememberFlow
 import org.jcastrejon.features.list.R
-import org.jcastrejon.features.list.navigation.components.ListEmptyView
+import org.jcastrejon.features.list.ui.components.ListEmptyView
 import org.jcastrejon.features.list.ui.arch.*
 import org.jcastrejon.features.list.ui.arch.ListAction.*
 import org.jcastrejon.features.list.ui.arch.ListEffect.GoToAddNote
@@ -60,7 +60,7 @@ fun ListScreen(
     ListContent(
         modifier = modifier,
         state = state,
-        onAction = { action -> listViewModel.onAction(action) }
+        onAction = listViewModel::onAction
     )
 }
 
