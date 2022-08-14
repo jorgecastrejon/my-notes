@@ -84,15 +84,21 @@ fun ListContent(
                 when (viewState) {
                     ViewState.Loading -> ListLoadingView()
                     ViewState.Empty -> ListEmptyView()
-                    ViewState.List -> ListView(notes = state.notes)
+                    ViewState.List -> ListView(
+                        notes = state.notes,
+                        editMode = state.editMode,
+                        selectedNotes = state.selectedNotes,
+                        onNoteClick = { noteId ->
+                            onAction(NoteClick(id = noteId, editMode = state.editMode))
+                        }
+                    )
                 }
             }
             FloatingActionButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .navigationBarsPadding()
-                    .padding(vertical = 24.dp, horizontal = 16.dp)
-                ,
+                    .padding(vertical = 24.dp, horizontal = 16.dp),
                 backgroundColor = MaterialTheme.colors.surface,
                 contentColor = MaterialTheme.colors.onSurface,
                 onClick = { onAction(AddNoteClick) }

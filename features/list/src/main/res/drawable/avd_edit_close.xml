@@ -35,7 +35,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="pathData"
-                android:duration="300"
+                android:duration="150"
                 android:valueFrom="M 18.718 7.404 L 17.303 8.818 L 15.182 6.697 L 16.596 5.282 C 16.987 4.892 17.62 4.892 18.011 5.282 L 18.011 5.282 L 18.718 5.99 C 19.108 6.38 19.108 7.013 18.718 7.404 M 7.757 18.364 L 5.636 18.364 L 5.636 16.243 L 14.475 7.404 L 16.596 9.525 L 16.596 9.525 L 7.757 18.364"
                 android:valueTo="M 18.204 7.918 L 16.567 9.555 L 14.445 7.433 L 16.342 5.536 C 16.662 5.216 16.983 4.895 17.303 4.575 L 17.834 5.106 L 19.425 6.697 C 19.018 7.104 18.611 7.511 18.204 7.918 M 6.697 19.425 L 5.584 18.312 L 4.575 17.303 L 14.445 7.433 L 16.494 9.481 L 16.567 9.555 L 6.697 19.425"
                 android:valueType="pathType"
@@ -46,8 +46,8 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="rotation"
-                android:startOffset="300"
-                android:duration="700"
+                android:startOffset="150"
+                android:duration="300"
                 android:valueFrom="0"
                 android:valueTo="180"
                 android:valueType="floatType"
@@ -58,7 +58,7 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="fillAlpha"
-                android:startOffset="300"
+                android:startOffset="150"
                 android:duration="1"
                 android:valueFrom="0"
                 android:valueTo="1"
@@ -70,8 +70,8 @@
         <aapt:attr name="android:animation">
             <objectAnimator
                 android:propertyName="rotation"
-                android:startOffset="300"
-                android:duration="350"
+                android:startOffset="150"
+                android:duration="150"
                 android:valueFrom="0"
                 android:valueTo="90"
                 android:valueType="floatType"

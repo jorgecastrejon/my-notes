@@ -30,15 +30,25 @@ class ListViewModel @Inject constructor(
                 is LoadData -> fetchNotes()
                 is AddNoteClick -> flowOf(AddNote)
                 is EditNoteClick -> flowOf(ToggleEditNode)
+                is NoteClick -> toggleNoteState(id = action.id, editMode = action.editMode)
             }
         }
 
     override fun reduce(previousState: ListState, result: ListResult): ListState =
         when (result) {
             is NotesBeingFetched -> previousState.copy(isLoading = true)
-            is NotesLoaded -> previousState.copy(isLoading = false, notes = result.notes)
+            is NotesLoaded -> previousState.copy(
+                isLoading = false,
+                notes = result.notes,
+                editMode = false,
+                selectedNotes = emptyList()
+            )
             is AddNote -> previousState
-            is ToggleEditNode -> previousState.copy(editMode = !previousState.editMode)
+            is ToggleEditNode -> previousState.copy(
+                editMode = !previousState.editMode,
+                selectedNotes = emptyList()
+            )
+            is ToggleNote -> previousState.toggleSelectedNote(id = result.id)
         }
 
     override fun onResult(result: ListResult) {
@@ -47,6 +57,7 @@ class ListViewModel @Inject constructor(
             is AddNote -> effects.trySend(GoToAddNote)
             is NotesBeingFetched,
             is NotesLoaded,
+            is ToggleNote,
             is ToggleEditNode -> Unit
         }
     }
@@ -57,4 +68,15 @@ class ListViewModel @Inject constructor(
 
         emit(NotesLoaded(notes = notes))
     }
+
+    private fun toggleNoteState(id: Int, editMode: Boolean): Flow<ListResult> = flow {
+        if (editMode) emit(ToggleNote(id = id))
+    }
+
+    private fun ListState.toggleSelectedNote(id: Int): ListState =
+        if (selectedNotes.contains(id)) {
+            copy(selectedNotes = selectedNotes - id)
+        } else {
+            copy(selectedNotes = selectedNotes + id)
+        }
 }
