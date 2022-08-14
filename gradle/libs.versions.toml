@@ -1,4 +1,5 @@
 [versions]
+accompanist = "0.25.0"
 androidBuildTools = "32.0.0"
 androidComplieSdk = "32"
 androidGradlePlugin = "7.2.2"
@@ -19,6 +20,7 @@ kotlinCoroutines = "1.6.4"
 sqldelight = "1.5.3"
 
 [libraries]
+accompanist-placeholder = { group = "com.google.accompanist", name = "accompanist-placeholder-material", version.ref = "accompanist" }
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }

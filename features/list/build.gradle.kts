@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":core:notes"))
     implementation(project(":foundation:arch"))
     implementation(project(":foundation:theme"))
+    implementation(libs.accompanist.placeholder)
     implementation(libs.android.material)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.animation.graphics)
