@@ -16,4 +16,7 @@ class NotesRepository(
     fun create(data: NoteUpdate) {
         dataSource.create(data)
     }
+
+    fun getAll(): List<Note> =
+        dataSource.getAll()
 }

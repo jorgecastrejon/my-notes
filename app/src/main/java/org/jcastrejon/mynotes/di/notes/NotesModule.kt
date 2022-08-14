@@ -15,6 +15,7 @@ import org.jcastrejon.notes.data.NotesRepository
 import org.jcastrejon.notes.data.NotesSQLDataSource
 import org.jcastrejon.notes.usecase.CreateNote
 import org.jcastrejon.notes.usecase.GetNoteById
+import org.jcastrejon.notes.usecase.GetNotes
 import org.jcastrejon.notes.usecase.UpdateNote
 import javax.inject.Singleton
 
@@ -39,6 +40,12 @@ object NotesModule {
         repository: NotesRepository
     ): GetNoteById =
         GetNoteById(repository = repository)
+
+    @Provides
+    fun provideGetNotes(
+        repository: NotesRepository
+    ): GetNotes =
+        GetNotes(repository = repository)
 
     @Singleton
     @Provides

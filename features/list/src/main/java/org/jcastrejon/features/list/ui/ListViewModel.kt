@@ -1,26 +1,26 @@
 package org.jcastrejon.features.list.ui
 
-import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.withContext
 import org.jcastrejon.arch.mvi.MviViewModel
 import org.jcastrejon.features.list.ui.arch.ListAction
-import org.jcastrejon.features.list.ui.arch.ListAction.EditNoteClick
-import org.jcastrejon.features.list.ui.arch.ListAction.AddNoteClick
-import org.jcastrejon.features.list.ui.arch.ListAction.LoadData
+import org.jcastrejon.features.list.ui.arch.ListAction.*
 import org.jcastrejon.features.list.ui.arch.ListEffect
 import org.jcastrejon.features.list.ui.arch.ListEffect.GoToAddNote
 import org.jcastrejon.features.list.ui.arch.ListResult
 import org.jcastrejon.features.list.ui.arch.ListResult.*
 import org.jcastrejon.features.list.ui.arch.ListState
+import org.jcastrejon.notes.usecase.GetNotes
 import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    private val getNotes: GetNotes,
 ) : MviViewModel<ListAction, ListResult, ListState, ListEffect>(
     initialState = ListState()
 ) {
@@ -53,8 +53,8 @@ class ListViewModel @Inject constructor(
 
     private fun fetchNotes(): Flow<ListResult> = flow {
         emit(NotesBeingFetched)
-//        val notes = withContext(Dispatchers.IO) { getNotes() }
+        val notes = withContext(Dispatchers.IO) { getNotes() }
 
-        emit(NotesLoaded(notes = emptyList()))
+        emit(NotesLoaded(notes = notes))
     }
 }
