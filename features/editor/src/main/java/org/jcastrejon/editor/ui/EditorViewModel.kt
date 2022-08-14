@@ -2,12 +2,12 @@ package org.jcastrejon.editor.ui
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.withContext
+import org.jcastrejon.arch.DispatcherProvider
 import org.jcastrejon.arch.mvi.MviViewModel
 import org.jcastrejon.editor.navigation.argument
 import org.jcastrejon.editor.navigation.argumentDefault
@@ -29,6 +29,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    private val dispatcherProvider: DispatcherProvider,
     private val getNoteById: GetNoteById,
     private val createNote: CreateNote,
     private val updateNote: UpdateNote,
@@ -74,7 +75,7 @@ class EditorViewModel @Inject constructor(
     }
 
     private fun findNote(noteId: Int): Flow<EditorResult> = flow {
-        val note = withContext(Dispatchers.IO) { getNoteById(noteId) }
+        val note = withContext(dispatcherProvider.io) { getNoteById(noteId) }
 
         if (note != null) {
             emit(LoadNote(note = note))
@@ -85,7 +86,7 @@ class EditorViewModel @Inject constructor(
 
     private fun saveNote(note: Note?, title: String, body: String): Flow<EditorResult> = flow {
         if (note != null) {
-            withContext(Dispatchers.IO) {
+            withContext(dispatcherProvider.io) {
                 updateNote(
                     id = note.id,
                     data = NoteUpdate(

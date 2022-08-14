@@ -1,11 +1,15 @@
 package org.jcastrejon.features.list.ui
 
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.withContext
+import org.jcastrejon.arch.DispatcherProvider
 import org.jcastrejon.arch.mvi.MviViewModel
 import org.jcastrejon.features.list.ui.arch.ListAction
 import org.jcastrejon.features.list.ui.arch.ListAction.*
@@ -20,6 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
+    private val dispatcherProvider: DispatcherProvider,
     private val getNotes: GetNotes,
     private val deleteNote: DeleteNote,
 ) : MviViewModel<ListAction, ListResult, ListState, ListEffect>(
@@ -66,7 +71,7 @@ class ListViewModel @Inject constructor(
 
     private fun fetchNotes(): Flow<ListResult> = flow {
         emit(NotesBeingFetched)
-        val notes = withContext(Dispatchers.IO) { getNotes() }
+        val notes = withContext(dispatcherProvider.io) { getNotes() }
 
         emit(NotesLoaded(notes = notes))
     }
@@ -76,9 +81,12 @@ class ListViewModel @Inject constructor(
     }
 
     private fun deleteNotes(ids: List<Int>): Flow<ListResult> = flow {
-        withContext(Dispatchers.IO) { ids.map { id -> async { deleteNote(id) } }.awaitAll() }
+        coroutineScope {
+            ids.map { id -> async(dispatcherProvider.io) { deleteNote(id) } }.awaitAll()
+        }
+
         emit(NotesBeingFetched)
-        val notes = withContext(Dispatchers.IO) { getNotes() }
+        val notes = withContext(dispatcherProvider.io) { getNotes() }
         emit(NotesLoaded(notes = notes))
 
     }

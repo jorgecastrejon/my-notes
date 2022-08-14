@@ -47,6 +47,7 @@ android {
 
 dependencies {
     implementation(project(":core:notes"))
+    implementation(project(":foundation:arch"))
     implementation(project(":foundation:theme"))
     implementation(project(":features:list"))
     implementation(project(":features:editor"))
