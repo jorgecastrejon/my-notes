@@ -1,13 +1,14 @@
 package org.jcastrejon.features.list.ui
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.animation.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -94,20 +95,59 @@ fun ListContent(
                     )
                 }
             }
-            FloatingActionButton(
+            SlideIn(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
-                    .navigationBarsPadding()
-                    .padding(vertical = 24.dp, horizontal = 16.dp),
-                backgroundColor = MaterialTheme.colors.surface,
-                contentColor = MaterialTheme.colors.onSurface,
-                onClick = { onAction(AddNoteClick) }
+                    .navigationBarsPadding(),
+                visible = !state.editMode,
             ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = null
-                )
+                FloatingActionButton(
+                    modifier = Modifier
+                        .padding(vertical = 24.dp, horizontal = 16.dp),
+                    backgroundColor = MaterialTheme.colors.surface,
+                    contentColor = MaterialTheme.colors.onSurface,
+                    onClick = { onAction(AddNoteClick) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Add,
+                        contentDescription = null
+                    )
+                }
+            }
+            SlideIn(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .navigationBarsPadding(),
+                visible = state.editMode && state.selectedNotes.isNotEmpty(),
+            ) {
+                FloatingActionButton(
+                    modifier = Modifier
+                        .padding(vertical = 24.dp, horizontal = 16.dp),
+                    backgroundColor = MaterialTheme.colors.surface,
+                    contentColor = MaterialTheme.colors.onSurface,
+                    onClick = { onAction(DeleteClick(ids = state.selectedNotes)) }
+                ) {
+                    Icon(
+                        imageVector = Icons.Rounded.Delete,
+                        contentDescription = null
+                    )
+                }
             }
         }
     }
+}
+
+@Composable
+fun SlideIn(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    content: @Composable AnimatedVisibilityScope.() -> Unit
+) {
+    AnimatedVisibility(
+        modifier = modifier,
+        visible = visible,
+        enter = fadeIn() + slideInVertically { it },
+        exit = slideOutVertically { it } + fadeOut(),
+        content = content
+    )
 }

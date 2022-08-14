@@ -19,4 +19,8 @@ class NotesRepository(
 
     fun getAll(): List<Note> =
         dataSource.getAll()
+
+    fun delete(id: Int) {
+        dataSource.remove(id)
+    }
 }

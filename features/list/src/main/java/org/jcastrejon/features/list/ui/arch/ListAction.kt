@@ -7,4 +7,5 @@ sealed class ListAction : MviAction {
     object AddNoteClick : ListAction()
     object EditNoteClick : ListAction()
     class NoteClick(val id: Int, val editMode: Boolean) : ListAction()
+    class DeleteClick(val ids: List<Int>) : ListAction()
 }

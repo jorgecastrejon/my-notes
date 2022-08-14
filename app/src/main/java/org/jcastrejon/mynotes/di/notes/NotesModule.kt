@@ -13,10 +13,7 @@ import org.jcastrejon.notes.data.NotesDataSource
 import org.jcastrejon.notes.data.NotesDatabaseFactory
 import org.jcastrejon.notes.data.NotesRepository
 import org.jcastrejon.notes.data.NotesSQLDataSource
-import org.jcastrejon.notes.usecase.CreateNote
-import org.jcastrejon.notes.usecase.GetNoteById
-import org.jcastrejon.notes.usecase.GetNotes
-import org.jcastrejon.notes.usecase.UpdateNote
+import org.jcastrejon.notes.usecase.*
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -46,6 +43,12 @@ object NotesModule {
         repository: NotesRepository
     ): GetNotes =
         GetNotes(repository = repository)
+
+    @Provides
+    fun provideDeleteNote(
+        repository: NotesRepository
+    ): DeleteNote =
+        DeleteNote(repository = repository)
 
     @Singleton
     @Provides
