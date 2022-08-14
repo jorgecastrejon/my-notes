@@ -24,6 +24,7 @@ import org.jcastrejon.features.list.R
 import org.jcastrejon.features.list.ui.arch.*
 import org.jcastrejon.features.list.ui.arch.ListAction.*
 import org.jcastrejon.features.list.ui.arch.ListEffect.GoToAddNote
+import org.jcastrejon.features.list.ui.arch.ListEffect.GoToDetail
 import org.jcastrejon.features.list.ui.components.ListEmptyView
 import org.jcastrejon.features.list.ui.components.ListLoadingView
 import org.jcastrejon.features.list.ui.components.ListToolbar
@@ -33,6 +34,7 @@ import org.jcastrejon.features.list.ui.components.ListView
 fun ListScreen(
     listViewModel: ListViewModel = viewModel(),
     onAddNoteClick: () -> Unit = {},
+    onNoteClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val state: ListState by listViewModel.state.collectAsStateLifecycleAware(ListState())
@@ -46,6 +48,7 @@ fun ListScreen(
         effects.collect { effect ->
             when (effect) {
                 is GoToAddNote -> onAddNoteClick()
+                is GoToDetail -> onNoteClick(effect.id)
             }
         }
     }

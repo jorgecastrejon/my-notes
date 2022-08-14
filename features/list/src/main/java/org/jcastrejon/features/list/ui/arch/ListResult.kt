@@ -9,4 +9,5 @@ sealed class ListResult : MviResult {
     object ToggleEditNode : ListResult()
     class NotesLoaded(val notes: List<Note>) : ListResult()
     class ToggleNote(val id: Int) : ListResult()
+    class InspectNote(val id: Int) : ListResult()
 }

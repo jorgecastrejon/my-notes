@@ -2,6 +2,7 @@ package org.jcastrejon.mynotes.navigation
 
 import org.jcastrejon.editor.navigation.EditorFeatureRoute
 import org.jcastrejon.editor.navigation.argumentDefault
+import org.jcastrejon.features.detail.navigation.DetailFeatureRoute
 import org.jcastrejon.features.list.navigation.ListFeatureRoute
 
 sealed class MyNotesScreen {
@@ -10,5 +11,8 @@ sealed class MyNotesScreen {
     }
     object Editor : MyNotesScreen() {
         operator fun invoke(id: Int = argumentDefault): String = EditorFeatureRoute(id)
+    }
+    object Detail : MyNotesScreen() {
+        operator fun invoke(id: Int): String = DetailFeatureRoute(id)
     }
 }

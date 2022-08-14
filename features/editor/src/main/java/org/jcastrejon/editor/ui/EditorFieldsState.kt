@@ -4,13 +4,14 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
+import org.jcastrejon.notes.Note
 
 @Composable
 fun rememberFieldsState(
-    from: Any? = null
+    from: Note? = null
 ): EditorFieldsState =
-    rememberSaveable(saver = EditorFieldsState.Saver) {
-        EditorFieldsState(initialTitle = String(), initialBody = String())
+    rememberSaveable(from,saver = EditorFieldsState.Saver) {
+        EditorFieldsState(initialTitle = from?.title.orEmpty(), initialBody = from?.body.orEmpty())
     }
 
 @Stable

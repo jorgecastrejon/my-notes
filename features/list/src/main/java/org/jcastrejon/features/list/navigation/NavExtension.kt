@@ -9,14 +9,16 @@ import org.jcastrejon.features.list.ui.ListViewModel
 const val ListFeatureRoute = "List"
 
 fun NavGraphBuilder.listRoute(
-    onAddNoteClick: () -> Unit
+    onAddNoteClick: () -> Unit,
+    onNoteClick: (Int) -> Unit,
 ) {
     composable(ListFeatureRoute) {
         val listViewModel: ListViewModel = hiltViewModel()
 
         ListScreen(
             listViewModel = listViewModel,
-            onAddNoteClick = onAddNoteClick
+            onAddNoteClick = onAddNoteClick,
+            onNoteClick = onNoteClick
         )
     }
 }

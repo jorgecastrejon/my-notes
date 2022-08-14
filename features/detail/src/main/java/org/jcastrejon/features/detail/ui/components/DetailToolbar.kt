@@ -1,4 +1,4 @@
-package org.jcastrejon.editor.ui.components
+package org.jcastrejon.features.detail.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -8,7 +8,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.KeyboardBackspace
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
@@ -19,10 +20,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EditorToolbar(
+fun DetailToolbar(
     modifier: Modifier = Modifier,
-    onSaveClick: () -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    onEditClick: () -> Unit = {},
+    onRemoveClick: () -> Unit = {}
 ) {
     Row(
         modifier = modifier
@@ -43,17 +45,26 @@ fun EditorToolbar(
         }
         Spacer(modifier = Modifier.weight(1f))
         ToolbarIconButton(
-            onClick = onSaveClick
+            onClick = onRemoveClick
         ) {
             Icon(
-                imageVector = Icons.Rounded.Done,
-                contentDescription = "save",
+                imageVector = Icons.Rounded.Delete,
+                contentDescription = "delete",
+                tint = MaterialTheme.colors.onBackground
+            )
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        ToolbarIconButton(
+            onClick = onEditClick
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Edit,
+                contentDescription = "edit",
                 tint = MaterialTheme.colors.onBackground
             )
         }
     }
 }
-
 @Composable
 fun ToolbarIconButton(
     modifier: Modifier = Modifier,

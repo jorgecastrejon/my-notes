@@ -84,6 +84,8 @@ fun EditorContent(
     ) {
         EditorToolbar(
             onSaveClick = {
+                keyboardController?.hide()
+                focusManager.clearFocus()
                 onAction(
                     OnSaveClick(
                         note = state.note,
@@ -92,7 +94,11 @@ fun EditorContent(
                     )
                 )
             },
-            onBackClick = { onAction(OnBackClick) },
+            onBackClick = {
+                keyboardController?.hide()
+                focusManager.clearFocus()
+                onAction(OnBackClick)
+            },
         )
         Spacer(modifier = Modifier.height(24.dp))
 

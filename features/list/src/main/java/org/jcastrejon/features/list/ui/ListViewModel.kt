@@ -14,6 +14,7 @@ import org.jcastrejon.arch.mvi.MviViewModel
 import org.jcastrejon.features.list.ui.arch.ListAction
 import org.jcastrejon.features.list.ui.arch.ListAction.*
 import org.jcastrejon.features.list.ui.arch.ListEffect
+import org.jcastrejon.features.list.ui.arch.ListEffect.GoToDetail
 import org.jcastrejon.features.list.ui.arch.ListEffect.GoToAddNote
 import org.jcastrejon.features.list.ui.arch.ListResult
 import org.jcastrejon.features.list.ui.arch.ListResult.*
@@ -50,6 +51,7 @@ class ListViewModel @Inject constructor(
                 editMode = false,
                 selectedNotes = emptyList()
             )
+            is InspectNote,
             is AddNote -> previousState
             is ToggleEditNode -> previousState.copy(
                 editMode = !previousState.editMode,
@@ -61,6 +63,7 @@ class ListViewModel @Inject constructor(
     override fun onResult(result: ListResult) {
         super.onResult(result)
         when (result) {
+            is InspectNote -> effects.trySend(GoToDetail(result.id))
             is AddNote -> effects.trySend(GoToAddNote)
             is NotesBeingFetched,
             is NotesLoaded,
@@ -77,7 +80,11 @@ class ListViewModel @Inject constructor(
     }
 
     private fun toggleNoteState(id: Int, editMode: Boolean): Flow<ListResult> = flow {
-        if (editMode) emit(ToggleNote(id = id))
+        if (editMode) {
+            emit(ToggleNote(id = id))
+        } else {
+            emit(InspectNote(id = id))
+        }
     }
 
     private fun deleteNotes(ids: List<Int>): Flow<ListResult> = flow {
